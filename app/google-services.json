@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "639589728138",
+    "firebase_url": "https://barbershop-755b0.firebaseio.com",
+    "project_id": "barbershop-755b0",
+    "storage_bucket": "barbershop-755b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639589728138:android:df3590813f742cf0",
+        "android_client_info": {
+          "package_name": "com.example.barbershop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639589728138-0hta016ivr6vrg2d0srrpvipfcq6ft49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.barbershop",
+            "certificate_hash": "cbbed711fb9746daa0aaacccb90bd9fd033886c9"
+          }
+        },
+        {
+          "client_id": "639589728138-jmbdtt503nnrj7trkcki4ns832knthe6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeqvemnA1QqCgADI9L3vM6EEk5TIUfey4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639589728138-jmbdtt503nnrj7trkcki4ns832knthe6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639589728138:android:39f145c40ae20554",
+        "android_client_info": {
+          "package_name": "com.example.barbershopstaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639589728138-frdt1q31rdtpqkf5g8310ocdsffvovkh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.barbershopstaff",
+            "certificate_hash": "cbbed711fb9746daa0aaacccb90bd9fd033886c9"
+          }
+        },
+        {
+          "client_id": "639589728138-jmbdtt503nnrj7trkcki4ns832knthe6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeqvemnA1QqCgADI9L3vM6EEk5TIUfey4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639589728138-jmbdtt503nnrj7trkcki4ns832knthe6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
