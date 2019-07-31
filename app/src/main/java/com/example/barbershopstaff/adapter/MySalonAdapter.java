@@ -17,12 +17,17 @@ import android.widget.Toast;
 import com.example.barbershopstaff.Common.Common;
 import com.example.barbershopstaff.Common.CustomLoginDialog;
 import com.example.barbershopstaff.Interface.IDialogClickListener;
+import com.example.barbershopstaff.Interface.IGetBarberListener;
 import com.example.barbershopstaff.Interface.IRecyclerItemSelectedListener;
+import com.example.barbershopstaff.Interface.IUserLoginRememberListener;
+import com.example.barbershopstaff.Model.Barber;
 import com.example.barbershopstaff.Model.Salon;
 import com.example.barbershopstaff.R;
+import com.example.barbershopstaff.StaffHomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -36,13 +41,17 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
     Context context;
     List<Salon> salonList;
     List<CardView> itemViewList;
-    LocalBroadcastManager localBroadcastManager;
 
-    public MySalonAdapter(Context context, List<Salon> salonList) {
+    IUserLoginRememberListener iUserLoginRememberListener;
+    IGetBarberListener iGetBarberListener;
+
+    public MySalonAdapter(Context context, List<Salon> salonList, IUserLoginRememberListener iUserLoginRememberListener,IGetBarberListener iGetBarberListener) {
         this.context = context;
         this.salonList = salonList;
         itemViewList = new ArrayList<>();
-        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        this.iGetBarberListener = iGetBarberListener;
+        this.iUserLoginRememberListener = iUserLoginRememberListener;
+
     }
 
     @NonNull
@@ -64,7 +73,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
             @Override
             public void onItemSelected(View view, int position) {
 
-                Common.selectedSalon = salonList.get(position);
+                Common.selected_salon = salonList.get(position);
                 showLoginDialog();
 
 
@@ -88,7 +97,7 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
     }
 
     @Override
-    public void onClickPositiveButton(final DialogInterface dialogInterface, String userName, String password) {
+    public void onClickPositiveButton(final DialogInterface dialogInterface, final String userName, String password) {
         //Show loading dialog
         final AlertDialog loading = new SpotsDialog.Builder().setCancelable(false)
                 .setContext(context).build();
@@ -98,9 +107,9 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
         ///AllSalon/NewYork/Branch/XpgTlJKm1TsOVRguWE6J/Barbers/LY8CsP6Pgqpf3f1C9Uk6
         FirebaseFirestore.getInstance()
                 .collection("AllSalon")
-                .document(Common.State_name)
+                .document(Common.state_name)
                 .collection("Branch")
-                .document(Common.selectedSalon.getSalonId())
+                .document(Common.selected_salon.getSalonId())
                 .collection("Barbers")
                 .whereEqualTo("username",userName)
                 .whereEqualTo("password",password)
@@ -123,6 +132,19 @@ public class MySalonAdapter extends RecyclerView.Adapter<MySalonAdapter.MyViewHo
                                 dialogInterface.dismiss();
 
                                 loading.dismiss();
+
+                                iUserLoginRememberListener.onUserLoginSuccess(userName);
+
+                                //create barber
+                                Barber barber = new Barber();
+                                for (DocumentSnapshot barberSnapShot:task.getResult())
+                                {
+                                    barber = barberSnapShot.toObject(Barber.class);
+                                    barber.setBarberId(barberSnapShot.getId());
+                                }
+
+                                iGetBarberListener.onGetBarberSuccess(barber);
+
 
                                 //we will navigate Staff Home and clear all Previous activity
                                 Intent staffHome = new Intent(context, StaffHomeActivity.class);

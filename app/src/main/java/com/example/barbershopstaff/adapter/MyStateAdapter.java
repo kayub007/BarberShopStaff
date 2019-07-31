@@ -51,7 +51,7 @@ public class MyStateAdapter extends RecyclerView.Adapter<MyStateAdapter.MyViewHo
         myViewHolder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
             @Override
             public void onItemSelected(View view, int position) {
-                Common.State_name = cityList.get(i).getName();
+                Common.state_name = cityList.get(i).getName();
                 context.startActivity(new Intent(context, SalonListActivity.class));
             }
         });
